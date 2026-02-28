@@ -28,7 +28,7 @@ function cn(...inputs: ClassValue[]) {
 }
 
 type TripType = "one-way" | "round-trip" | "multi-city";
-type TabType = "Flight" | "Hotel" | "Tour" | "Visa";
+type TabType = "Flight" | "Hotel" | "Activities" | "Transfer" | "Visa";
 type CabinClass = "Economy" | "Business" | "First";
 
 interface Airport {
@@ -220,24 +220,20 @@ export default function FlightSearchWidget() {
 
   return (
     <div className="w-full max-w-6xl mx-auto font-sans relative" ref={containerRef}>
-      {/* Top Tab Navigation */}
-      <div className="flex items-center space-x-10 mb-6 px-4">
-        {["Flight", "Hotel", "Tour", "Visa"].map((label) => (
+      {/* Service Tabs (Below Header) */}
+      <div className="flex items-center space-x-3 mb-6">
+        {["Flight", "Hotel", "Activities", "Transfer", "Visa"].map((label) => (
           <button
             key={label}
             onClick={() => setActiveTab(label as TabType)}
             className={cn(
-              "flex items-center space-x-2 pb-3 text-lg font-semibold transition-all relative border-b-2",
+              "px-8 py-3 rounded-md text-sm font-bold transition-all shadow-sm",
               activeTab === label
-                ? "text-primary border-primary"
-                : "text-text-muted border-transparent hover:text-primary",
+                ? "bg-[#1A73E8] text-white shadow-md shadow-blue-500/20"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200",
             )}
           >
-            {label === "Flight" && <Plane className="w-5 h-5" />}
-            {label === "Hotel" && <Hotel className="w-5 h-5" />}
-            {label === "Tour" && <Map className="w-5 h-5" />}
-            {label === "Visa" && <CreditCard className="w-5 h-5" />}
-            <span>{label}</span>
+            {label}
           </button>
         ))}
       </div>
@@ -296,24 +292,24 @@ export default function FlightSearchWidget() {
         {/* Dynamic Flight Segments */}
         <div className="space-y-4">
           {segments.map((segment, index) => (
-            <div key={segment.id} className="relative">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-0 border border-border-light rounded-2xl overflow-visible shadow-sm">
+            <div key={segment.id} className="relative w-full">
+              <div className="flex items-center gap-3 w-full">
                 {/* Requirement 1: FROM Field */}
                 <div
                   onClick={() => {
                     setActiveSegmentIndex(index);
                     setOpenPopup("fromSearch");
                   }}
-                  className="md:col-span-3 p-5 border-b md:border-b-0 md:border-r border-border-light relative group cursor-pointer hover:bg-blue-50/30 transition-colors rounded-l-2xl"
+                  className="flex-[2] h-[88px] border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors relative"
                 >
                   <p className="text-[10px] uppercase text-text-muted font-bold tracking-wider mb-1">From</p>
                   <div className="flex items-baseline space-x-1 overflow-hidden">
-                    <h3 className="text-2xl font-black truncate">{segment.from?.city || "Select City"}</h3>
+                    <h3 className="text-xl font-black truncate">{segment.from?.city || "Select City"}</h3>
                     {segment.from && (
-                      <span className="text-sm font-bold text-text-muted shrink-0 uppercase">{segment.from.code}</span>
+                      <span className="text-xs font-bold text-text-muted shrink-0 uppercase">{segment.from.code}</span>
                     )}
                   </div>
-                  <p className="text-xs text-text-muted truncate font-medium mt-1">
+                  <p className="text-[11px] text-text-muted truncate font-medium mt-0.5">
                     {segment.from?.airport || "Type to search airport"}
                   </p>
 
@@ -324,9 +320,9 @@ export default function FlightSearchWidget() {
                       e.stopPropagation();
                       handleSwap(index);
                     }}
-                    className="absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white border border-border-light p-2 rounded-xl shadow-lg hover:border-primary transition-colors text-primary"
+                    className="absolute -right-[26px] top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 p-2 rounded-full shadow-sm hover:border-[#1A73E8] transition-colors text-[#1A73E8]"
                   >
-                    <ArrowRightLeft className="w-5 h-5" />
+                    <ArrowRightLeft className="w-4 h-4" />
                   </motion.button>
                 </div>
 
@@ -336,16 +332,16 @@ export default function FlightSearchWidget() {
                     setActiveSegmentIndex(index);
                     setOpenPopup("toSearch");
                   }}
-                  className="md:col-span-3 p-5 border-b md:border-b-0 md:border-r border-border-light cursor-pointer hover:bg-blue-50/30 transition-colors pl-8"
+                  className="flex-[2] h-[88px] border border-gray-200 rounded-xl p-4 pl-8 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors ml-2"
                 >
                   <p className="text-[10px] uppercase text-text-muted font-bold tracking-wider mb-1">To</p>
                   <div className="flex items-baseline space-x-1 overflow-hidden">
-                    <h3 className="text-2xl font-black truncate">{segment.to?.city || "Select City"}</h3>
+                    <h3 className="text-xl font-black truncate">{segment.to?.city || "Select City"}</h3>
                     {segment.to && (
-                      <span className="text-sm font-bold text-text-muted shrink-0 uppercase">{segment.to.code}</span>
+                      <span className="text-xs font-bold text-text-muted shrink-0 uppercase">{segment.to.code}</span>
                     )}
                   </div>
-                  <p className="text-xs text-text-muted truncate font-medium mt-1">
+                  <p className="text-[11px] text-text-muted truncate font-medium mt-0.5">
                     {segment.to?.airport || "Type to search airport"}
                   </p>
                 </div>
@@ -356,13 +352,13 @@ export default function FlightSearchWidget() {
                     setActiveSegmentIndex(index);
                     setOpenPopup("calendar");
                   }}
-                  className="md:col-span-2 p-5 border-b md:border-b-0 md:border-r border-border-light cursor-pointer hover:bg-blue-50/30 transition-colors"
+                  className="flex-[1.5] h-[88px] border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors"
                 >
                   <p className="text-[10px] uppercase text-text-muted font-bold tracking-wider mb-1">Departure</p>
                   <h3 className="text-xl font-bold text-nowrap">
                     {departureDate ? format(departureDate, "dd MMM''yy") : "Select"}
                   </h3>
-                  <p className="text-xs text-text-muted font-semibold mt-1">
+                  <p className="text-[11px] text-text-muted font-semibold mt-0.5">
                     {departureDate ? format(departureDate, "EEEE") : "Date"}
                   </p>
                 </div>
@@ -376,21 +372,25 @@ export default function FlightSearchWidget() {
                       }
                     }}
                     className={cn(
-                      "md:col-span-2 p-5 border-b md:border-b-0 md:border-r border-border-light cursor-pointer transition-colors relative",
-                      tripType === "one-way" ? "bg-gray-50/50 opacity-60 cursor-not-allowed" : "hover:bg-blue-50/30",
+                      "flex-[1.5] h-[88px] border border-gray-200 rounded-xl p-4 transition-colors relative",
+                      tripType === "one-way"
+                        ? "bg-gray-50/50 cursor-not-allowed border-gray-100"
+                        : "cursor-pointer hover:border-[#1A73E8] bg-white",
                     )}
                   >
                     <p className="text-[10px] uppercase text-text-muted font-bold tracking-wider mb-1">Return</p>
                     {tripType === "one-way" ? (
-                      <p className="text-[11px] text-text-muted font-medium mt-2 leading-tight">
-                        Save more with round trip
+                      <p className="text-[11px] text-text-muted font-medium mt-1 leading-tight">
+                        Save more with
+                        <br />
+                        round trip
                       </p>
                     ) : (
                       <>
                         <h3 className="text-xl font-bold text-nowrap">
                           {returnDate ? format(returnDate, "dd MMM''yy") : "Select"}
                         </h3>
-                        <p className="text-xs text-text-muted font-semibold mt-1">
+                        <p className="text-[11px] text-text-muted font-semibold mt-0.5">
                           {returnDate ? format(returnDate, "EEEE") : "--"}
                         </p>
                       </>
@@ -401,29 +401,47 @@ export default function FlightSearchWidget() {
                 {index === 0 && (
                   <div
                     onClick={() => setOpenPopup("passengers")}
-                    className="md:col-span-2 p-5 cursor-pointer hover:bg-blue-50/30 transition-colors rounded-r-2xl"
+                    className="flex-[2] h-[88px] border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors"
                   >
                     <p className="text-[10px] uppercase text-text-muted font-bold tracking-wider mb-1">
                       Traveler & Class
                     </p>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mt-1">
                       <div className="overflow-hidden">
-                        <h3 className="text-xl font-bold truncate">
+                        <h3 className="text-xl font-bold truncate tracking-tight">
                           {totalTravelers} {totalTravelers > 1 ? "Travelers" : "Traveler"}
                         </h3>
-                        <p className="text-xs text-text-muted font-semibold mt-1 truncate">{cabinClass}</p>
+                        <p className="text-[11px] text-text-muted font-semibold mt-0.5 truncate">{cabinClass}</p>
                       </div>
                       <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />
                     </div>
                   </div>
                 )}
 
+                {/* Search Button integrated in Row */}
+                {index === 0 && (
+                  <motion.button
+                    whileHover={!isSearchDisabled ? {scale: 1.02} : {}}
+                    whileTap={!isSearchDisabled ? {scale: 0.98} : {}}
+                    onClick={handleSearch}
+                    disabled={isLoading || isSearchDisabled}
+                    className={cn(
+                      "h-[88px] px-8 rounded-xl flex items-center justify-center transition-all shrink-0 ml-2",
+                      isSearchDisabled
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-[#1A73E8] text-white hover:bg-blue-700 shadow-md shadow-blue-500/20",
+                    )}
+                  >
+                    {isLoading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Search className="w-7 h-7" />}
+                  </motion.button>
+                )}
+
                 {tripType === "multi-city" && index > 0 && (
                   <button
                     onClick={() => removeSegment(index)}
-                    className="absolute -right-3 -top-3 bg-white border border-border-light text-red-500 rounded-full p-1 shadow-md hover:bg-red-50 transition-colors z-30"
+                    className="ml-4 bg-white border border-gray-200 text-red-500 rounded-full p-2 shadow-sm hover:bg-red-50 transition-colors shrink-0"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-5 h-5" />
                   </button>
                 )}
               </div>
@@ -442,24 +460,6 @@ export default function FlightSearchWidget() {
             </button>
           </div>
         )}
-
-        <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 z-10">
-          <motion.button
-            whileHover={!isSearchDisabled ? {scale: 1.05, filter: "brightness(1.05)"} : {}}
-            whileTap={!isSearchDisabled ? {scale: 0.95} : {}}
-            onClick={handleSearch}
-            disabled={isLoading || isSearchDisabled}
-            className={cn(
-              "font-black px-16 py-4 rounded-[14px] shadow-xl text-xl uppercase tracking-widest flex items-center space-x-3 transition-all",
-              isSearchDisabled
-                ? "bg-gray-200 text-gray-400 cursor-not-allowed shadow-none"
-                : "bg-accent text-[#1a1a1a]",
-            )}
-          >
-            {isLoading && <Loader2 className="w-6 h-6 animate-spin" />}
-            <span>{isLoading ? "Searching..." : "Search Flights"}</span>
-          </motion.button>
-        </div>
 
         {/* Popups */}
         <AnimatePresence>
@@ -521,7 +521,7 @@ export default function FlightSearchWidget() {
               initial={{opacity: 0, scale: 0.95, y: 20}}
               animate={{opacity: 1, scale: 1, y: 0}}
               exit={{opacity: 0, scale: 0.95, y: 20}}
-              className="absolute z-[100] top-full mt-4 left-1/2 -translate-x-1/2"
+              className="absolute z-100 top-[120px] left-[40%]"
             >
               <FareCalendarPicker
                 tripType={tripType}
@@ -538,7 +538,7 @@ export default function FlightSearchWidget() {
               initial={{opacity: 0, scale: 0.95, y: -20}}
               animate={{opacity: 1, scale: 1, y: 0}}
               exit={{opacity: 0, scale: 0.95, y: -20}}
-              className="absolute right-8 top-full mt-2 z-50 bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-3xl p-8 w-[360px]"
+              className="absolute right-8 top-[120px] z-100 bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-3xl p-8 w-[360px]"
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
