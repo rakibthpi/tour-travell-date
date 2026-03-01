@@ -24,7 +24,7 @@ export default function ServiceTabs() {
             "px-7 py-3 rounded-lg text-base font-bold transition-all shadow-sm flex items-center gap-2",
             tab.label === "Flight"
               ? "bg-[#1A73E8] text-white shadow-md shadow-blue-500/20"
-              : "bg-gray-100 text-gray-600 hover:bg-gray-200",
+              : "bg-white/70 text-gray-600 hover:bg-gray-200",
           )}
         >
           <img className="w-7 h-7" src={tab.icon} alt={tab.label} />

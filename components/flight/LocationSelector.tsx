@@ -45,13 +45,13 @@ function FromInput({
       className="flex-[2] rounded-lg px-3.5 py-2.5 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors relative"
     >
       <div className="flex items-baseline space-x-1 overflow-hidden">
-        <h3 className="text-base font-bold truncate">{segment.from?.city || "Select City"}</h3>
+        <h3 className="text-base font-bold truncate">{segment.from?.city || "Departure City"}</h3>
         {segment.from && (
           <span className="text-sm font-light text-text-muted shrink-0 uppercase">{segment.from.code}</span>
         )}
       </div>
       <p className="text-sm text-text-muted truncate font-light mt-0.5">
-        {segment.from?.airport || "Type to search airport"}
+        {segment.from?.airport || "Select city/airport"}
       </p>
 
       <SwapButton onSwap={onSwap} />
@@ -66,11 +66,11 @@ function ToInput({segment, onClick}: {segment: FlightSegment; onClick: () => voi
       className="flex-[2] rounded-lg px-3.5 py-2.5 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors ml-2"
     >
       <div className="flex items-baseline space-x-1 overflow-hidden">
-        <h3 className="text-base font-bold truncate">{segment.to?.city || "Select City"}</h3>
+        <h3 className="text-base font-bold truncate">{segment.to?.city || "Arrival City"}</h3>
         {segment.to && <span className="text-sm font-light text-text-muted shrink-0 uppercase">{segment.to.code}</span>}
       </div>
       <p className="text-sm text-text-muted truncate font-light mt-0.5">
-        {segment.to?.airport || "Type to search airport"}
+        {segment.to?.airport || "Select city/airport"}
       </p>
     </div>
   );

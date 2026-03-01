@@ -21,9 +21,9 @@ export default function FlightSearchWidget() {
   const [segments, setSegments] = useState<FlightSegment[]>([
     {
       id: "1",
-      from: MOCK_AIRPORTS[0],
-      to: MOCK_AIRPORTS[1],
-      date: addDays(new Date(), 3),
+      from: null,
+      to: null,
+      date: null,
     },
   ]);
   const [departureDate, setDepartureDate] = useState<Date | null>(null);
@@ -167,7 +167,7 @@ export default function FlightSearchWidget() {
     <div className="w-full max-w-6xl mx-auto font-sans relative" ref={containerRef}>
       <ServiceTabs />
 
-      <div className="bg-white/50 rounded-[24px] shadow-md p-8 relative border border-border-light">
+      <div className="bg-white/70 rounded-lg shadow-md p-8 relative border border-border-light">
         <TripTypeSelector
           tripType={tripType}
           setTripType={setTripType}
@@ -250,29 +250,38 @@ export default function FlightSearchWidget() {
         )}
 
         <AnimatePresence>
-          <LocationPopup
-            openPopup={openPopup}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            filteredAirports={filteredAirports}
-            handleAirportSelect={handleAirportSelect}
-          />
-          <CalendarPopup
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-            tripType={tripType}
-            departureDate={departureDate}
-            returnDate={returnDate}
-            handleDateSelect={handleDateSelect}
-          />
-          <PassengerPopup
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-            passengers={passengers}
-            setPassengers={setPassengers}
-            cabinClass={cabinClass}
-            setCabinClass={setCabinClass}
-          />
+          {(openPopup === "fromSearch" || openPopup === "toSearch") && (
+            <LocationPopup
+              key="location-popup"
+              openPopup={openPopup}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              filteredAirports={filteredAirports}
+              handleAirportSelect={handleAirportSelect}
+            />
+          )}
+          {openPopup === "calendar" && (
+            <CalendarPopup
+              key="calendar-popup"
+              openPopup={openPopup}
+              setOpenPopup={setOpenPopup}
+              tripType={tripType}
+              departureDate={departureDate}
+              returnDate={returnDate}
+              handleDateSelect={handleDateSelect}
+            />
+          )}
+          {openPopup === "passengers" && (
+            <PassengerPopup
+              key="passenger-popup"
+              openPopup={openPopup}
+              setOpenPopup={setOpenPopup}
+              passengers={passengers}
+              setPassengers={setPassengers}
+              cabinClass={cabinClass}
+              setCabinClass={setCabinClass}
+            />
+          )}
         </AnimatePresence>
       </div>
     </div>

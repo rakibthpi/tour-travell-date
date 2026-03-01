@@ -27,10 +27,10 @@ function DepartureField({departureDate, onClick}: {departureDate: Date | null; o
       className="flex-[1.5] rounded-lg px-3.5 py-2.5 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors"
     >
       <h3 className="text-base font-bold text-nowrap">
-        {departureDate ? format(departureDate, "dd MMM''yy") : "Select"}
+        {departureDate ? format(departureDate, "dd MMM''yy") : "Departure Date"}
       </h3>
       <p className="text-sm text-text-muted font-light mt-0.5">
-        {departureDate ? format(departureDate, "EEEE") : "Date"}
+        {departureDate ? format(departureDate, "EEEE") : "Please select date"}
       </p>
     </div>
   );
@@ -64,9 +64,11 @@ function ReturnField({
       ) : (
         <>
           <h3 className="text-base font-bold text-nowrap">
-            {returnDate ? format(returnDate, "dd MMM''yy") : "Select"}
+            {returnDate ? format(returnDate, "dd MMM''yy") : "Arrival Date"}
           </h3>
-          <p className="text-sm text-text-muted font-light mt-0.5">{returnDate ? format(returnDate, "EEEE") : "--"}</p>
+          <p className="text-sm text-text-muted font-light mt-0.5">
+            {returnDate ? format(returnDate, "EEEE") : "Please select date"}
+          </p>
         </>
       )}
     </div>
