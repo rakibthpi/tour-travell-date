@@ -24,9 +24,9 @@ export default function Header() {
         {/* Left Side: Logo & Menu */}
         <div className="flex items-center space-x-12">
           {/* Logo */}
-          <div>
+          <a href="#">
             <img className="w-24" src="./logo.png" alt="photos" />
-          </div>
+          </a>
 
           {/* Navigation Menu (Desktop Only) */}
           <nav className="hidden lg:flex items-center gap-12">
