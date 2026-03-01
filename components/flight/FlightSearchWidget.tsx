@@ -164,10 +164,10 @@ export default function FlightSearchWidget() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto font-sans relative" ref={containerRef}>
+    <div className="w-full max-w-6xl mx-auto font-sans relative max-[1140px]:px-4" ref={containerRef}>
       <ServiceTabs />
 
-      <div className="bg-white/70 rounded-lg shadow-md p-8 relative border border-border-light">
+      <div className="bg-white/70 rounded-2xl shadow-md p-4 md:p-6 lg:p-8 relative border border-border-light">
         <TripTypeSelector
           tripType={tripType}
           setTripType={setTripType}
@@ -183,7 +183,7 @@ export default function FlightSearchWidget() {
               initial={{opacity: 0, y: -10}}
               animate={{opacity: 1, y: 0}}
               exit={{opacity: 0, y: -10}}
-              className="absolute top-20 left-1/2 -translate-x-1/2 bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm font-bold z-[60] border border-red-100 shadow-sm"
+              className="absolute top-20 left-1/2 -translate-x-1/2 bg-red-50 text-red-600 px-4 py-2 rounded-lg text-xs sm:text-sm font-bold z-[60] border border-red-100 shadow-sm"
             >
               {errorStatus}
             </motion.div>
@@ -193,41 +193,55 @@ export default function FlightSearchWidget() {
         <div className="space-y-4">
           {segments.map((segment, index) => (
             <div key={segment.id} className="relative w-full">
-              <div className="flex items-center gap-3 w-full">
-                <LocationSelector
-                  segment={segment}
-                  index={index}
-                  setActiveSegmentIndex={setActiveSegmentIndex}
-                  setOpenPopup={setOpenPopup}
-                  handleSwap={handleSwap}
-                />
+              <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-[4] items-stretch gap-3 w-full">
+                  <LocationSelector
+                    segment={segment}
+                    index={index}
+                    setActiveSegmentIndex={setActiveSegmentIndex}
+                    setOpenPopup={setOpenPopup}
+                    handleSwap={handleSwap}
+                  />
+                </div>
 
-                <DateSelector
-                  index={index}
-                  tripType={tripType}
-                  setTripType={setTripType}
-                  departureDate={departureDate}
-                  returnDate={returnDate}
-                  setActiveSegmentIndex={setActiveSegmentIndex}
-                  setOpenPopup={setOpenPopup}
-                />
-
-                {index === 0 && (
-                  <PassengerSelector
-                    totalTravelers={totalTravelers}
-                    cabinClass={cabinClass}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-[3] items-stretch gap-3 w-full">
+                  <DateSelector
+                    index={index}
+                    tripType={tripType}
+                    setTripType={setTripType}
+                    departureDate={departureDate}
+                    returnDate={returnDate}
+                    setActiveSegmentIndex={setActiveSegmentIndex}
                     setOpenPopup={setOpenPopup}
                   />
-                )}
+                </div>
 
-                {index === 0 && (
-                  <SearchButton isLoading={isLoading} isSearchDisabled={isSearchDisabled} handleSearch={handleSearch} />
-                )}
+                <div className="flex flex-col sm:flex-row lg:flex lg:flex-[2.5] items-stretch gap-3 w-full">
+                  {index === 0 && (
+                    <div className="flex-1">
+                      <PassengerSelector
+                        totalTravelers={totalTravelers}
+                        cabinClass={cabinClass}
+                        setOpenPopup={setOpenPopup}
+                      />
+                    </div>
+                  )}
+
+                  {index === 0 && (
+                    <div className="flex-1 lg:flex-none">
+                      <SearchButton
+                        isLoading={isLoading}
+                        isSearchDisabled={isSearchDisabled}
+                        handleSearch={handleSearch}
+                      />
+                    </div>
+                  )}
+                </div>
 
                 {tripType === "multi-city" && index > 0 && (
                   <button
                     onClick={() => removeSegment(index)}
-                    className="ml-4 bg-white border border-gray-200 text-red-500 rounded-full p-2 shadow-sm hover:bg-red-50 transition-colors shrink-0"
+                    className="absolute -right-2 -top-2 lg:relative lg:right-0 lg:top-0 bg-white border border-gray-200 text-red-500 rounded-full p-2 shadow-sm hover:bg-red-50 transition-colors shrink-0 z-10"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -241,7 +255,7 @@ export default function FlightSearchWidget() {
           <div className="mt-6">
             <button
               onClick={addSegment}
-              className="flex items-center space-x-2 text-primary font-bold text-sm uppercase px-4 py-2 border border-primary/20 rounded-lg hover:bg-primary/5 transition-all"
+              className="flex items-center space-x-2 text-primary font-bold text-xs sm:text-sm uppercase px-4 py-2 border border-primary/20 rounded-lg hover:bg-primary/5 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Add Another Flight</span>

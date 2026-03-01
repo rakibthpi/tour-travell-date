@@ -22,7 +22,7 @@ export default function SearchButton({isLoading, isSearchDisabled, handleSearch}
       onClick={handleSearch}
       disabled={isLoading || isSearchDisabled}
       className={cn(
-        "h-[70px] px-7 rounded-xl flex items-center justify-center transition-all shrink-0 ml-2",
+        "h-[70px] lg:h-[64px] px-7 rounded-lg lg:rounded-xl flex items-center justify-center transition-all shrink-0 w-full lg:w-auto",
         isSearchDisabled
           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
           : "bg-[#1A73E8] text-white hover:bg-blue-700 shadow-md shadow-blue-500/20",

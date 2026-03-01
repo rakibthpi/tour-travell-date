@@ -19,14 +19,16 @@ export default function PassengerSelector({totalTravelers, cabinClass, setOpenPo
   return (
     <div
       onClick={() => setOpenPopup("passengers")}
-      className="flex-[2] rounded-lg px-3.5 py-2.5 cursor-pointer hover:border-[#1A73E8] bg-white transition-colors"
+      className="flex-1 rounded-lg px-3.5 py-4 lg:py-2.5 cursor-pointer border border-transparent hover:border-[#1A73E8] bg-white transition-colors"
     >
       <div className="flex items-center justify-between mt-1">
         <div className="overflow-hidden">
-          <h3 className="text-xl font-bold truncate tracking-tight">
+          <h3 className="text-base sm:text-xl lg:text-lg font-bold truncate tracking-tight">
             {totalTravelers} {totalTravelers > 1 ? "Travelers" : "Traveler"}
           </h3>
-          <p className="text-[11px] text-text-muted font-semibold mt-0.5 truncate">{cabinClass}</p>
+          <p className="text-[10px] sm:text-xs lg:text-[11px] text-text-muted font-semibold mt-0.5 truncate">
+            {cabinClass}
+          </p>
         </div>
         <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />
       </div>
@@ -42,71 +44,71 @@ export function PassengerPopup({openPopup, setOpenPopup, passengers, setPassenge
       initial={{opacity: 0, scale: 0.95, y: -20}}
       animate={{opacity: 1, scale: 1, y: 0}}
       exit={{opacity: 0, scale: 0.95, y: -20}}
-      className="absolute right-8 top-[160px] z-[100] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-3xl p-8 w-[360px]"
+      className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-auto sm:right-8 top-[140px] sm:top-[160px] z-[100] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 w-[90vw] sm:w-[360px]"
     >
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-bold text-lg">Adults</p>
-            <p className="text-xs text-text-muted font-medium">12+ years</p>
+            <p className="font-bold text-base sm:text-lg">Adults</p>
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium">12+ years</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <button
               onClick={() => setPassengers((p: any) => ({...p, adults: Math.max(1, p.adults - 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Minus className="w-5 h-5 text-text-muted" />
+              <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-text-muted" />
             </button>
-            <span className="text-xl font-bold w-4 text-center">{passengers.adults}</span>
+            <span className="text-lg sm:text-xl font-bold w-4 text-center">{passengers.adults}</span>
             <button
               onClick={() => setPassengers((p: any) => ({...p, adults: Math.min(9, p.adults + 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Plus className="w-5 h-5 text-primary" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </button>
           </div>
         </div>
 
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-bold text-lg">Children</p>
-            <p className="text-xs text-text-muted font-medium">2-12 years</p>
+            <p className="font-bold text-base sm:text-lg">Children</p>
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium">2-12 years</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <button
               onClick={() => setPassengers((p: any) => ({...p, children: Math.max(0, p.children - 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Minus className="w-5 h-5 text-text-muted" />
+              <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-text-muted" />
             </button>
-            <span className="text-xl font-bold w-4 text-center">{passengers.children}</span>
+            <span className="text-lg sm:text-xl font-bold w-4 text-center">{passengers.children}</span>
             <button
               onClick={() => setPassengers((p: any) => ({...p, children: Math.min(9, p.children + 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Plus className="w-5 h-5 text-primary" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </button>
           </div>
         </div>
 
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-bold text-lg">Infants</p>
-            <p className="text-xs text-text-muted font-medium">Below 2 years</p>
+            <p className="font-bold text-base sm:text-lg">Infants</p>
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium">Below 2 years</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <button
               onClick={() => setPassengers((p: any) => ({...p, infants: Math.max(0, p.infants - 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Minus className="w-5 h-5 text-text-muted" />
+              <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-text-muted" />
             </button>
-            <span className="text-xl font-bold w-4 text-center">{passengers.infants}</span>
+            <span className="text-lg sm:text-xl font-bold w-4 text-center">{passengers.infants}</span>
             <button
               onClick={() => setPassengers((p: any) => ({...p, infants: Math.min(passengers.adults, p.infants + 1)}))}
-              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <Plus className="w-5 h-5 text-primary" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </button>
           </div>
         </div>

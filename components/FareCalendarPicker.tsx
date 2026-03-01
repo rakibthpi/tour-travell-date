@@ -103,13 +103,15 @@ export default function FareCalendarPicker({
     mode === "range" ? {from: departureDate || undefined, to: returnDate || undefined} : departureDate || undefined;
 
   return (
-    <div className="bg-white rounded-3xl shadow-[0_24px_80px_-15px_rgba(26,115,232,0.2)] border border-[#e7e7e7] overflow-hidden w-screen max-w-4xl max-h-[90vh] flex flex-col">
+    <div className="bg-white rounded-3xl shadow-[0_24px_80px_-15px_rgba(26,115,232,0.2)] border border-[#e7e7e7] overflow-hidden w-[90vw] sm:w-max max-w-4xl max-h-[90vh] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-white">
+      <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100 bg-white">
         <div>
-          <h2 className="text-xl font-black text-[#1A73E8] leading-tight tracking-tight">Select journey date</h2>
+          <h2 className="text-lg sm:text-xl font-black text-[#1A73E8] leading-tight tracking-tight">
+            Select journey date
+          </h2>
           <div className="flex items-center space-x-2 mt-1">
-            <span className="text-sm font-bold text-gray-500">
+            <span className="text-xs sm:text-sm font-bold text-gray-500">
               {mode === "single"
                 ? departureDate
                   ? format(departureDate, "dd MMM'yy, EEEE")
@@ -121,7 +123,7 @@ export default function FareCalendarPicker({
             {mode === "range" && (
               <>
                 <ChevronRight className="w-3 h-3 text-gray-300" />
-                <span className="text-sm font-bold text-gray-500">
+                <span className="text-xs sm:text-sm font-bold text-gray-500">
                   {returnDate ? format(returnDate, "dd MMM'yy, EEEE") : "Return date"}
                 </span>
               </>
@@ -129,16 +131,16 @@ export default function FareCalendarPicker({
           </div>
         </div>
         <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors group">
-          <X className="w-6 h-6 text-gray-400 group-hover:text-red-500" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-red-500" />
         </button>
       </div>
 
-      <div className="p-4 overflow-auto custom-scrollbar">
+      <div className="p-2 sm:p-4 overflow-auto custom-scrollbar">
         <DayPicker
           mode={mode as any}
           selected={selectedConfig as any}
           onDayClick={(day) => onDateSelect(day, day)}
-          numberOfMonths={2}
+          numberOfMonths={typeof window !== "undefined" && window.innerWidth <= 767 ? 1 : 2}
           pagedNavigation
           disabled={{before: startOfToday()}}
           components={{
@@ -151,10 +153,10 @@ export default function FareCalendarPicker({
               ),
           }}
           classNames={{
-            months: "flex flex-col md:flex-row gap-8 justify-center",
+            months: "flex flex-col md:flex-row gap-4 sm:gap-8 justify-center",
             month: "space-y-4",
-            month_caption: "flex justify-center pt-2 relative items-center mb-6",
-            caption_label: "text-lg font-black text-gray-900 tracking-tight",
+            month_caption: "flex justify-center pt-2 relative items-center mb-4 sm:mb-6",
+            caption_label: "text-base sm:text-lg font-black text-gray-900 tracking-tight",
             nav: "space-x-1 flex items-center",
             button_previous:
               "absolute left-2 h-9 w-9 bg-white p-0 opacity-70 hover:opacity-100 transition-all flex items-center justify-center border border-gray-200 rounded-xl z-20 shadow-sm",
@@ -181,17 +183,17 @@ export default function FareCalendarPicker({
       </div>
 
       {/* Footer Info */}
-      <div className="p-6 bg-gray-50 border-t border-gray-100 flex items-center space-x-8 text-[11px] font-black uppercase tracking-[0.1em] text-gray-500">
+      <div className="p-4 sm:p-6 bg-gray-50 border-t border-gray-100 flex items-center flex-wrap gap-4 sm:space-x-8 text-[9px] sm:text-[11px] font-black uppercase tracking-[0.1em] text-gray-500">
         <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 bg-green-500 rounded-full shadow-sm" />
+          <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-green-500 rounded-full shadow-sm" />
           <span>Lowest Fare</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 bg-gray-400 rounded-full shadow-sm" />
+          <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-gray-400 rounded-full shadow-sm" />
           <span>Regular Fare</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 bg-red-400 rounded-full shadow-sm" />
+          <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-red-400 rounded-full shadow-sm" />
           <span>High Demand</span>
         </div>
       </div>

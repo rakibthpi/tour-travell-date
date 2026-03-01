@@ -22,7 +22,7 @@ export default function TripTypeSelector({
   addSegment,
 }: TripTypeSelectorProps) {
   return (
-    <div className="flex items-center space-x-8 mb-8">
+    <div className="flex flex-wrap items-center gap-6 md:gap-8 mb-8">
       {(["one-way", "round-trip", "multi-city"] as TripType[]).map((type) => (
         <label key={type} className="flex items-center space-x-3 cursor-pointer group">
           <input
@@ -46,7 +46,7 @@ export default function TripTypeSelector({
           </div>
           <span
             className={cn(
-              "text-base font-medium capitalize",
+              "text-xs sm:text-base font-medium capitalize",
               tripType === type ? "text-primary font-bold" : "text-text-muted",
             )}
           >
