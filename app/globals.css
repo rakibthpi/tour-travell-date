@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Roboto", sans-serif;
   color: var(--text-dark);
   margin: 0;
   padding: 0;
@@ -24,6 +24,7 @@ body {
 }
 
 @theme {
+  --font-sans: "Roboto", sans-serif;
   --color-primary: var(--primary-blue);
   --color-accent: var(--secondary-yellow);
   --color-border-light: var(--border-light);
@@ -56,4 +57,14 @@ body {
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #bbb;
+}
+.overlay-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e6f2ff81;
+  z-index: -1;
 }
