@@ -115,8 +115,8 @@ export function LocationPopup({openPopup, searchQuery, setSearchQuery, filteredA
       animate={{opacity: 1, scale: 1, y: 0}}
       exit={{opacity: 0, scale: 0.95, y: -20}}
       className={cn(
-        "absolute z-[100] bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-2xl p-0 w-[400px] overflow-hidden top-[120px]",
-        openPopup === "fromSearch" ? "left-8" : "left-[30%]",
+        "absolute z-[100] bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-2xl p-0 w-[400px] overflow-hidden top-[160px]",
+        openPopup === "fromSearch" ? "left-8" : "left-[20%]",
       )}
     >
       <div className="p-4 bg-gray-50 border-b border-gray-100 flex items-center space-x-3">

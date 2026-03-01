@@ -42,7 +42,7 @@ export function PassengerPopup({openPopup, setOpenPopup, passengers, setPassenge
       initial={{opacity: 0, scale: 0.95, y: -20}}
       animate={{opacity: 1, scale: 1, y: 0}}
       exit={{opacity: 0, scale: 0.95, y: -20}}
-      className="absolute right-8 top-[120px] z-[100] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-3xl p-8 w-[360px]"
+      className="absolute right-8 top-[160px] z-[100] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-border-light rounded-3xl p-8 w-[360px]"
     >
       <div className="space-y-6">
         <div className="flex items-center justify-between">

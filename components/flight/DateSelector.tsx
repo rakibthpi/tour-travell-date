@@ -117,7 +117,7 @@ export function CalendarPopup({openPopup, setOpenPopup, tripType, departureDate,
       initial={{opacity: 0, scale: 0.95, y: 20}}
       animate={{opacity: 1, scale: 1, y: 0}}
       exit={{opacity: 0, scale: 0.95, y: 20}}
-      className="absolute z-[100] top-[120px] left-[40%]"
+      className="absolute z-[100] top-[160px] left-[40%]"
     >
       <FareCalendarPicker
         tripType={tripType}
