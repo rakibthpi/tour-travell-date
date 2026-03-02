@@ -17,6 +17,7 @@ interface FareCalendarPickerProps {
   returnDate: Date | null;
   onDateSelect: (val: any, selectedDay: Date) => void;
   onClose: () => void;
+  isRange: boolean;
 }
 
 const getFare = (date: Date) => {
@@ -95,8 +96,9 @@ export default function FareCalendarPicker({
   returnDate,
   onDateSelect,
   onClose,
+  isRange,
 }: FareCalendarPickerProps) {
-  const mode = tripType === "round-trip" ? "range" : "single";
+  const mode = isRange ? "range" : "single";
 
   // Exact DayPicker Binding:
   const selectedConfig =
@@ -140,8 +142,8 @@ export default function FareCalendarPicker({
           mode={mode as any}
           selected={selectedConfig as any}
           onDayClick={(day) => onDateSelect(day, day)}
-          numberOfMonths={typeof window !== "undefined" && window.innerWidth <= 767 ? 1 : 2}
-          pagedNavigation
+          numberOfMonths={typeof window !== "undefined" && window.innerWidth <= 767 ? 12 : 2}
+          pagedNavigation={!(typeof window !== "undefined" && window.innerWidth <= 767)}
           disabled={{before: startOfToday()}}
           components={{
             DayButton: CustomDayButton,
@@ -182,8 +184,18 @@ export default function FareCalendarPicker({
         />
       </div>
 
+      {/* Mobile Confirm Button */}
+      <div className="p-4 sm:hidden bg-white border-t border-gray-100 mt-auto">
+        <button
+          onClick={onClose}
+          className="w-full bg-[#1A73E8] text-white font-black py-3 rounded-xl shadow-lg hover:bg-blue-600 transition-colors uppercase tracking-wider text-sm"
+        >
+          Confirm Selection
+        </button>
+      </div>
+
       {/* Footer Info */}
-      <div className="p-4 sm:p-6 bg-gray-50 border-t border-gray-100 flex items-center flex-wrap gap-4 sm:space-x-8 text-[9px] sm:text-[11px] font-black uppercase tracking-[0.1em] text-gray-500">
+      <div className="p-4 sm:p-6 bg-gray-50 border-t border-gray-100 flex items-center flex-wrap gap-4 sm:space-x-8 text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-gray-500">
         <div className="flex items-center space-x-2">
           <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-green-500 rounded-full shadow-sm" />
           <span>Lowest Fare</span>

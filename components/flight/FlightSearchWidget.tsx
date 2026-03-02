@@ -119,35 +119,58 @@ export default function FlightSearchWidget() {
   const handleDateSelect = (val: any, selectedDay: Date) => {
     if (!selectedDay) return;
 
-    if (tripType === "one-way" || tripType === "multi-city") {
-      setDepartureDate(selectedDay);
-      setReturnDate(null);
+    const isFirstSegment = activeSegmentIndex === 0;
+    const isMultiCity = tripType === "multi-city";
 
+    if (isMultiCity || !isFirstSegment) {
+      // Standard single selection for multi-city or subsequent segments
+      setDepartureDate(selectedDay);
       const newSegments = [...segments];
       newSegments[activeSegmentIndex].date = selectedDay;
       setSegments(newSegments);
+      if (isFirstSegment) setReturnDate(null);
 
-      setOpenPopup(null);
-    } else if (tripType === "round-trip") {
-      if (!departureDate || (departureDate && returnDate)) {
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 767;
+      if (!isMobile) {
+        setOpenPopup(null);
+      }
+      return;
+    }
+
+    // Automatic toggling logic for the first segment
+    if (!departureDate || (departureDate && returnDate)) {
+      // Start a new selection (always One Way initially)
+      setDepartureDate(selectedDay);
+      setReturnDate(null);
+      setTripType("one-way");
+
+      const newSegments = [...segments];
+      newSegments[0].date = selectedDay;
+      setSegments(newSegments);
+    } else {
+      // We already have a departure date and are picking a second date
+      if (selectedDay > departureDate) {
+        // Selected a return date - switch to Round Trip
+        setReturnDate(selectedDay);
+        setTripType("round-trip");
+
+        const isMobile = typeof window !== "undefined" && window.innerWidth <= 767;
+        if (!isMobile) {
+          setOpenPopup(null);
+        }
+      } else if (selectedDay.getTime() === departureDate.getTime()) {
+        // Clicked the same day - keep as One Way
+        setReturnDate(null);
+        setTripType("one-way");
+      } else {
+        // Selected a day BEFORE current departure - make it the new departure
         setDepartureDate(selectedDay);
         setReturnDate(null);
+        setTripType("one-way");
 
         const newSegments = [...segments];
         newSegments[0].date = selectedDay;
         setSegments(newSegments);
-      } else {
-        if (selectedDay > departureDate) {
-          setReturnDate(selectedDay);
-          setOpenPopup(null);
-        } else {
-          setDepartureDate(selectedDay);
-          setReturnDate(null);
-
-          const newSegments = [...segments];
-          newSegments[0].date = selectedDay;
-          setSegments(newSegments);
-        }
       }
     }
   };
@@ -283,6 +306,7 @@ export default function FlightSearchWidget() {
               departureDate={departureDate}
               returnDate={returnDate}
               handleDateSelect={handleDateSelect}
+              activeSegmentIndex={activeSegmentIndex}
             />
           )}
           {openPopup === "passengers" && (

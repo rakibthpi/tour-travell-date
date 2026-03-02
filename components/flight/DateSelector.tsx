@@ -98,9 +98,6 @@ export default function DateSelector({
           tripType={tripType}
           returnDate={returnDate}
           onClick={() => {
-            if (tripType === "one-way") {
-              setTripType("round-trip");
-            }
             setOpenPopup("calendar");
           }}
         />
@@ -109,15 +106,25 @@ export default function DateSelector({
   );
 }
 
-export function CalendarPopup({openPopup, setOpenPopup, tripType, departureDate, returnDate, handleDateSelect}: any) {
+export function CalendarPopup({
+  openPopup,
+  setOpenPopup,
+  tripType,
+  departureDate,
+  returnDate,
+  handleDateSelect,
+  activeSegmentIndex,
+}: any) {
   if (openPopup !== "calendar") return null;
+
+  const isRangeMode = activeSegmentIndex === 0 && tripType !== "multi-city";
 
   return (
     <motion.div
       initial={{opacity: 0, scale: 0.95, y: 20}}
       animate={{opacity: 1, scale: 1, y: 0}}
       exit={{opacity: 0, scale: 0.95, y: 20}}
-      className="absolute z-[100] top-[140px] sm:top-[160px] left-1/2 -translate-x-1/2 lg:left-[40%] lg:translate-x-0 w-max"
+      className="absolute z-100 top-[140px] sm:top-[160px] left-1/2 -translate-x-1/2 lg:left-[40%] lg:translate-x-0 w-max"
     >
       <FareCalendarPicker
         tripType={tripType}
@@ -125,6 +132,7 @@ export function CalendarPopup({openPopup, setOpenPopup, tripType, departureDate,
         returnDate={returnDate}
         onDateSelect={handleDateSelect}
         onClose={() => setOpenPopup(null)}
+        isRange={isRangeMode}
       />
     </motion.div>
   );
