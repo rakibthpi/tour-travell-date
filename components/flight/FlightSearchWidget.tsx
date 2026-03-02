@@ -164,7 +164,7 @@ export default function FlightSearchWidget() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto font-sans relative max-[1140px]:px-4" ref={containerRef}>
+    <div className="w-full max-w-6xl mx-auto font-sans relative sm:max-[1140px]:px-4" ref={containerRef}>
       <ServiceTabs />
 
       <div className="bg-white/70 rounded-2xl shadow-md p-4 md:p-6 lg:p-8 relative border border-border-light">

@@ -22,9 +22,9 @@ export default function TripTypeSelector({
   addSegment,
 }: TripTypeSelectorProps) {
   return (
-    <div className="flex flex-wrap items-center gap-6 md:gap-8 mb-8">
+    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-y-2 gap-x-3 sm:gap-y-4 sm:gap-x-6 lg:gap-8 mb-8">
       {(["one-way", "round-trip", "multi-city"] as TripType[]).map((type) => (
-        <label key={type} className="flex items-center space-x-3 cursor-pointer group">
+        <label key={type} className="flex items-center space-x-1.5 md:space-x-3 cursor-pointer group">
           <input
             type="radio"
             name="trip-type"
@@ -38,11 +38,11 @@ export default function TripTypeSelector({
           />
           <div
             className={cn(
-              "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+              "w-4 h-4 md:w-6 md:h-6 rounded-full border-2 flex items-center justify-center transition-all",
               tripType === type ? "border-primary" : "border-gray-300 group-hover:border-primary",
             )}
           >
-            {tripType === type && <div className="w-3 h-3 rounded-full bg-primary" />}
+            {tripType === type && <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-primary" />}
           </div>
           <span
             className={cn(

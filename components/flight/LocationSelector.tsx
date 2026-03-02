@@ -23,7 +23,9 @@ function SwapButton({onSwap}: {onSwap: (e: React.MouseEvent) => void}) {
       whileHover={{scale: 1.1}}
       whileTap={{scale: 0.9, rotate: 180}}
       onClick={onSwap}
-      className="absolute -right-[26px] top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 p-2 rounded-full shadow-sm hover:border-[#1A73E8] transition-colors text-[#1A73E8]"
+      className="absolute z-20 bg-white border border-gray-200 p-2 rounded-full shadow-sm hover:border-[#1A73E8] transition-colors text-[#1A73E8]
+        max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:top-full max-sm:mt-[6px] max-sm:-translate-y-1/2
+        sm:left-full sm:ml-[6px] sm:-translate-x-1/2 sm:top-1/2 sm:-translate-y-1/2"
     >
       <ArrowRightLeft className="w-4 h-4" />
     </motion.button>
